@@ -18,7 +18,7 @@ import { parseFilterParams } from "../utils/parseFilterParams.js";
             userId: req.user.id,
         });
 
-        res.json({data:contacts, message: "Successfully found contacts!"});
+        res.json({status: 200, data:contacts, message: "Successfully found contacts!"});
     }
     
     export async function getContactByIdCtrl(req, res) {
@@ -27,7 +27,7 @@ import { parseFilterParams } from "../utils/parseFilterParams.js";
 
         if(!contact) throw new createHttpError.NotFound('Contact not found');
 
-        res.json({data:contact, message: "Successfully found contact!"});
+        res.json({status: 200, data:contact, message: "Successfully found contact!"});
     }
 
 
@@ -46,14 +46,14 @@ import { parseFilterParams } from "../utils/parseFilterParams.js";
         throw new createHttpError.NotFound('Contact not found');
         }
 
-        res.json({data: updatedContact, message: "Successfully updated contact!"});
+        res.json({status: 200, data: updatedContact, message: "Successfully updated contact!"});
     }
 
     export async function deleteContactCtrl(req, res) {
         const contactId = req.params.id;
         const deletedContact = await deleteContact(contactId, req.user.id);
         if(!deletedContact) throw new createHttpError.NotFound('Contact not found');
-        res.status(204);
+        res.status(204).end();
     }
 
 
